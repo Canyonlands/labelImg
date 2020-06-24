@@ -30,20 +30,14 @@ jobs:
     - name: create app
       run: |
         python setup.py py2app -A
-    - name: Zip Release
-      uses: TheDoctor0/zip-release@v0.3.0
-      with:
-        # Filename for archive
-        filename: labelImg.zip
-        # Base path for archive files
-        path: dist/labelImg.app
-        # Working directory before zipping
-        directory: .
+    - name: archive app
+      run: |
+        cd dist && tar czvf labelImg.tar.gz labelImg.app 
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
           # Artifact name
-          name: labelImg.zip
+          name: labelImg.tar.gz
           # A file, directory or wildcard pattern that describes what to upload
-          path: dist/labelImg.zip
+          path: dist/labelImg.tar.gz
